@@ -171,6 +171,7 @@ do
 
     echo +++ CONFIGURE MEMBER 1 CASE 
     [ -e $USER_MODS_DIR/env_mach_pes.xml ] && cp -f $USER_MODS_DIR/env_mach_pes.xml . 
+    [ -e $USER_MODS_DIR/env_mach_specific.xml ] && cp -f $USER_MODS_DIR/env_mach_specific.xml . 
     ./case.setup
     ./preview_namelists
 
