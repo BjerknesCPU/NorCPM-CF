@@ -816,8 +816,13 @@ contains
        ipiv(p) = 1
        jpiv(p) = 1
        if (lat(p) .ge. -90 .and. lat(p) .le. 89 .and. lon(p) .ge. -180 .and. lon(p) .le. 180) then
+#ifdef PIVOTP_MICOM_NEW
           call pivotp_micom_new(lon(p), lat(p), modlon, modlat, ipiv(p), jpiv(p), &
                nx, ny, min_r, max_r,itw, jtw, its, jts, itn, jtn, ite, jte)
+#else
+          call pivotp_micom(lon(p), lat(p), modlon, modlat, ipiv(p), jpiv(p), &
+               nx, ny, min_r, max_r,itw, jtw, itn, jtn, its, jts, ite, jte)
+#endif
        end if
     end do
   end subroutine get_pivot

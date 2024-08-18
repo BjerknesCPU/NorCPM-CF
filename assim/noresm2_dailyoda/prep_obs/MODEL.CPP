@@ -2,3 +2,4 @@
 #define ANOMALY
 #define LITTLE_ENDIAN
 #undef MASK_LANDNEIGHBOUR
+#undef PIVOTP_MICOM_NEW
