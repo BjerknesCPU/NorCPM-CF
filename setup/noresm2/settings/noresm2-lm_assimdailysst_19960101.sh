@@ -6,7 +6,7 @@
 : ${MEMBER1:=1} # first member  
 : ${ENSSIZE:=10} # number of members 
 : ${COMPSET:=NHISTfrc2}
-: ${USER_MODS_DIR:=$SETUPROOT/user_mods/noresm2-lm_assimdailysst_128pes}   
+: ${USER_MODS_DIR:=$SETUPROOT/user_mods/noresm2-lm_dailyoda_128pes}   
 : ${RES:=f19_tn14}
 : ${START_DATE:=1996-01-01} # YYYY-MM-DD 
 
@@ -19,10 +19,10 @@
 : ${REF_DATES:=1996-01-01} # multiple reference dates only for RUN_TYPE=hybrid
 
 # job settings
-: ${STOP_OPTION:=nmonths} # units for run length specification STOP_N 
+: ${STOP_OPTION:=nyears} # units for run length specification STOP_N 
 : ${STOP_N:=1} # run continuesly for this length 
-: ${RESTART:=0} # restart this many times  
-: ${WALLTIME:='01:00:00'}
+: ${RESTART:=7} # restart this many times  
+: ${WALLTIME:='96:00:00'}
 : ${ACCOUNT:=nn9039k}
 : ${MAX_PARALLEL_STARCHIVE:=30}
 
@@ -36,7 +36,7 @@
 : ${MEMBER_PREFIX:=mem} # recommended are either empty or "mem" 
 
 # assimilation settings
-: ${ASSIMROOT:=$SETUPROOT/../../assim/noresm2_dailysst}
+: ${ASSIMROOT:=$SETUPROOT/../../assim/noresm2_dailyoda}
 : ${MEAN_MOD_DIR:=$INPUTDATA_ASSIM/enkf/$RES/NorESM2-LM-CMIP6}
 : ${NTASKS_ODA:=128}
 : ${OCNGRIDFILE:=$INPUTDATA/ocn/blom/grid/grid_tnx1v4_20170622.nc}

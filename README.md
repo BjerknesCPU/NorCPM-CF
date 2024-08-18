@@ -5,7 +5,7 @@ Created: 2024.08.15 (Ingo.Bethke@uib.no)
 ## Description 
 
 A flexible, open-source code structure for NorCPM that integrates 
-assimilation, model and setup code in a single repository.  
+assimilation, model code and setup scripts in a single repository.  
 
 ## Installation on Betzy 
 
@@ -14,7 +14,7 @@ assimilation, model and setup code in a single repository.
 Visit github.com and create a github user account. 
 
 Send request to become member of BCPU group to ingo.bethke@uib.no 
-This is only necessary If you want to developer the repository.    
+This is only necessary If you wish to developer the repository.    
  
 ### Add public ssh key to github profile 
 
@@ -109,12 +109,19 @@ This will compile the assimilation code into
 
     /cluster/work/users/$USER/noresm/assim_standalone/enkf_cf-system1 
 
+### Download and install NorESM code
+
+To download NorESM2 from github and install it in the NorCPMX structure 
+execute  
+
+     cd $NORCPMROOT/setup/noresm2
+     ./install_noresm2.sh    
 
 ### Setting up a new experiment 
 
 Change to your personalized setup folder with 
 
-    cd $NORCPMROOT/setup/devel_$USER 
+    cd $NORCPMROOT/setup/noresm1_$USER 
 
 Set up a new experiment with 
 

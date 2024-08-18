@@ -4,6 +4,7 @@
 . $SETUPROOT/settings/setmach.sh 
 cd $ANALYSISROOT
 rm -f *_PAUSE_* 
+touch BLOM_DA 
 
 ODA () {
   set -xv 
