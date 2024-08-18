@@ -2,7 +2,7 @@
 # USE VARNAME=VALUE ARGUMENT WHEN CALLING SCRIPT TO OVERRIDE DEFAULTS 
 
 # experiment settings
-: ${EXPERIMENT:=noresm2-lm_assimdailysst} # case prefix, not including _YYYYMMDD_memXX suffix 
+: ${EXPERIMENT:=noresm2-lm_dailyoda} # case prefix, not including _YYYYMMDD_memXX suffix 
 : ${MEMBER1:=1} # first member  
 : ${ENSSIZE:=10} # number of members 
 : ${COMPSET:=NHISTfrc2}

@@ -4,14 +4,9 @@
 . $SETUPROOT/settings/setmach.sh 
 cd $ANALYSISROOT
 rm -f *_PAUSE_* 
+touch BLOM_DA 
 
-while [ ! -e NORESM_FINISHED ]
-do
-  if [ ! `ls | grep BLOM_PAUSE_ | wc -l` -eq $ENSSIZE ]
-  then 
-    sleep 0.1 
-    continue 
-  fi 
+ODA () {
   set -xv 
 
   DATE=`cat BLOM_PAUSE_001`
@@ -46,7 +41,7 @@ do
     echo +++ Link model and observation data
     if [ $FREQUENCY == 'MONTH' ]
     then
-      [ ! DAY == '15' ] && continue # do monthly assim only on 15th 
+      [ ! $DD == '15' ] && continue # do monthly assim only on 15th 
       if [ -e $INPUTDATA_ASSIM/obs/$OBSTYPE/$PRODUCER/${YYYY}_${MM}.nc ]
       then  
         ln -sf $INPUTDATA_ASSIM/obs/$OBSTYPE/$PRODUCER/${YYYY}_${MM}.nc .
@@ -118,6 +113,13 @@ do
   date
 
   set +xv
+} # ODA end 
+
+
+while [ ! -e NORESM_FINISHED ]
+do
+  [ `ls | grep BLOM_PAUSE_ | wc -l` -eq $ENSSIZE ] && ODA
+  sleep 0.1 
 done 
 
 echo + NorESM finished - will stop assimilation script

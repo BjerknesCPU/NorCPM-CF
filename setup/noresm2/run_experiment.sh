@@ -66,7 +66,7 @@ do
   if [[ $ASSIMROOT ]]
   then
     rm -f $ANALYSISROOT/NORESM_FINISHED
-    $ASSIMROOT/assim_run.sh $* & 
+    $ASSIMROOT/assim_step.sh $* & 
   fi  
     
   echo + LAUNCH FIRST MEMBER - WILL RUN THE ENTIRE ENSEMBLE
