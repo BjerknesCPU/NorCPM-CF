@@ -2,11 +2,11 @@
 # USE VARNAME=VALUE ARGUMENT WHEN CALLING SCRIPT TO OVERRIDE DEFAULTS 
 
 # experiment settings
-: ${EXPERIMENT:=NorESM2-LM_noassim} # case prefix, not including _YYYYMMDD_memXX suffix 
+: ${EXPERIMENT:=noresm2-lm_odaday} # case prefix, not including _YYYYMMDD_memXX suffix 
 : ${MEMBER1:=1} # first member  
-: ${ENSSIZE:=4} # number of members 
+: ${ENSSIZE:=10} # number of members 
 : ${COMPSET:=NHISTfrc2}
-: ${USER_MODS_DIR:=$SETUPROOT/user_mods/noresm2-lm_noassim_128pes}   
+: ${USER_MODS_DIR:=$SETUPROOT/user_mods/noresm2-lm_oda_128pes}   
 : ${RES:=f19_tn14}
 : ${START_DATE:=1996-01-01} # YYYY-MM-DD 
 
@@ -19,11 +19,10 @@
 : ${REF_DATES:=1996-01-01} # multiple reference dates only for RUN_TYPE=hybrid
 
 # job settings
-: ${STOP_OPTION:=nmonths} # units for run length specification STOP_N 
+: ${STOP_OPTION:=nyears} # units for run length specification STOP_N 
 : ${STOP_N:=1} # run continuesly for this length 
-: ${RESTART:=0} # restart this many times  
-: ${WALLTIME:='01:00:00'}
-#: ${PECOUNT:=M} 
+: ${RESTART:=7} # restart this many times  
+: ${WALLTIME:='96:00:00'}
 : ${ACCOUNT:=nn9039k}
 : ${MAX_PARALLEL_STARCHIVE:=30}
 
@@ -37,17 +36,12 @@
 : ${MEMBER_PREFIX:=mem} # recommended are either empty or "mem" 
 
 # assimilation settings
-#: ${ASSIMROOT:=$SETUPROOT/../../assim/enkf_cf-system1}
-: ${MEAN_MOD_DIR:=$INPUTDATA/enkf/$RES/norcpm-cf-system1}
-: ${ENSAVE:=1} # diagnose ensemble averages
-: ${SKIP_ASSIM_START:=1} # 1 = skip DA at experiment start (before running model)  
-: ${SKIP_ASSIM_FIRST:=0} # 1 = skip first assimilation update also if experiment continues   
-: ${RFACTOR_START:=1} # inflation factor at experiment start 
-: ${COMPENSATE_ICE_FRESHWATER:=1} # only for enkf_cf-system1 
-: ${ENKF_NTASKS:=128}
-: ${MICOM_INIT_NTASKS_PER_MEMBER:=16}
-: ${OCNGRIDFILE:=$INPUTDATA/ocn/micom/gx1v6/20101119/grid.nc}
+: ${ASSIMROOT:=$SETUPROOT/../../assim/enkf_noresm2_oda}
+: ${MEAN_MOD_DIR:=$INPUTDATA_ASSIM/enkf/$RES/NorESM2-LM-CMIP6}
+: ${NTASKS_ODA:=128}
+: ${OCNGRIDFILE:=$INPUTDATA/ocn/blom/grid/grid_tnx1v4_20170622.nc}
 : ${OBSLIST:='TEM SAL SST'}
 : ${PRODUCERLIST:='EN422 EN422 NOAA'}
-: ${REF_PERIODLIST:='1982-2016 1982-2016 1982-2016'}
+: ${FREQUENCYLIST:='MONTH MONTH DAY'} 
+: ${REF_PERIODLIST:='1980-2010 1980-2010 1980-2010'}
 : ${COMBINE_ASSIM:='0 0 1'}
