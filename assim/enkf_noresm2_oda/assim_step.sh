@@ -9,7 +9,7 @@ touch BLOM_DA
 ODA () {
   set -xv 
 
-  DATE=`cat BLOM_PAUSE_001`
+  DATE=`ls BLOM_PAUSE_* | head -1 | tail -c11`
   YYYY=`echo $DATE | cut -c1-4`   
   MM=`echo $DATE | cut -c6-7`   
   DD=`echo $DATE | cut -c9-10`   
@@ -109,7 +109,7 @@ ODA () {
   done #OBS list
 
   echo + FINISHED ASSIMILATION UPDATE $YYYY-$MM-$DD 
-  rm BLOM_PAUSE_??? forecast???.nc 
+  rm BLOM_PAUSE_???_$DATE forecast???.nc 
   date
 
   set +xv
@@ -118,7 +118,7 @@ ODA () {
 
 while [ ! -e NORESM_FINISHED ]
 do
-  [ `ls | grep BLOM_PAUSE_ | wc -l` -eq $ENSSIZE ] && ODA
+  [ `ls BLOM_PAUSE_* | wc -l` -eq $ENSSIZE ] && ODA
   sleep 0.1 
 done 
 

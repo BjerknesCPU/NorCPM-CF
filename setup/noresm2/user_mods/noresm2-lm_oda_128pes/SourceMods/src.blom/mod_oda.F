@@ -27,16 +27,15 @@ c
 c
         if (mnproc.eq.1) then
           write(lp,*)'ODA pause at ',rdate()
-          open(unit=999,file='../../ANALYSIS/BLOM_PAUSE_'//member_tag(),
-     .      status='replace',action='write')
+          open(unit=999,file='../../ANALYSIS/BLOM_PAUSE_'//member_tag()
+     .      //'_'//rdate(),status='replace',action='write')
           write(999,'(A)') rdate() 
           close(999)
           lpause = .true.
           do while ( lpause )
             call sleepqq(100) !! for sleep 0.1 sec
-            inquire(file='../../ANALYSIS/BLOM_PAUSE_'//member_tag(),
-     .        exist=lpause)
-              !! some process to DA, then delete the PAUSE file
+            inquire(file='../../ANALYSIS/BLOM_PAUSE_'//member_tag()//'_'
+     .        //rdate(),exist=lpause)
           end do
           write(lp,*)'ODA pause finished, continue run'
         end if         
