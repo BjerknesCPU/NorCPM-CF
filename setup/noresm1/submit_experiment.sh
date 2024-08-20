@@ -43,12 +43,12 @@ cat <<EOF> $JOB_SCRIPT
 #SBATCH --time=${WALLTIME}
 #SBATCH --nodes=${NODESNEW}
 #SBATCH --ntasks=${MPPWIDTHNEW}
-#SBATCH --output=$CASEROOT1/${EXPERIMENT}.log_%j
+#SBATCH --output=${LOGFILE}
 
 SETUPROOT=${SETUPROOT}
 source ${SETUPROOT}/run_experiment.sh $* 
 EOF
 
 echo + SUBMIT JOB
-JOBID=`sbatch $JOB_SCRIPT | awk '{print $4}'`
-echo ++ log written to $CASEROOT1/${EXPERIMENT}.log_$JOBID
+JOBID=`sbatch ${JOB_SCRIPT} | awk '{print $4}'`
+echo ++ log written to ${LOGFILE}
