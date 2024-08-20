@@ -34,7 +34,7 @@ Install NorCPM in the nn9039k project space with
 
     mkdir -p /cluster/projects/nn9039k/people/$USER
     cd /cluster/projects/nn9039k/people/$USER 
-    git ssh://git@github.com/BjerknesCPU/NorCPMX.git NorCPMX
+    git clone ssh://git@github.com/BjerknesCPU/NorCPMX.git NorCPMX
 
 NorCPM is installed in `/cluster/projects/nn9039k/people/$USER/NorCPMX`
 

@@ -2,7 +2,7 @@
 # USE VARNAME=VALUE ARGUMENT WHEN CALLING SCRIPT TO OVERRIDE DEFAULTS 
 
 # experiment settings
-: ${EXPERIMENT:=norcpm-cf-system2_assimtest} # case prefix, not including _YYYYMMDD_memXX suffix 
+: ${EXPERIMENT:=norcpm-cf-system2_reanalysis} # case prefix, not including _YYYYMMDD_memXX suffix 
 : ${MEMBER1:=01} # first member  
 : ${ENSSIZE:=16} # number of members 
 : ${COMPSET:=N20TREXTAERCNCF2}
@@ -11,19 +11,19 @@
 
 # initialisation settings
 : ${RUN_TYPE:=branch} # branch: reference ensemble, hybrid: single reference simulation  
-: ${REF_EXPERIMENT:=norcpm-cf-system1_assim_19921015} # name of reference experiment, including start date if necessary
+: ${REF_EXPERIMENT:=norcpm-cf-system2_reanalysis_20000115} # name of reference experiment, including start date if necessary
 : ${REF_SUFFIX_MEMBER1:=_mem01} # reference run used to initialise first member for 'branch', all members for 'hybrid' 
 : ${REF_PATH_LOCAL_MEMBER1:=$INPUTDATA/ccsm4_init/$REF_EXPERIMENT/$REF_EXPERIMENT$REF_SUFFIX_MEMBER1}
 : ${REF_PATH_REMOTE_MEMBER1:=}
-: ${REF_DATES:=2000-01-15} # multiple reference dates only for RUN_TYPE=hybrid
+: ${REF_DATES:=2023-07-15} # multiple reference dates only for RUN_TYPE=hybrid
 
 # job settings
 : ${STOP_OPTION:=nmonths} # units for run length specification STOP_N 
 : ${STOP_N:=1} # run continuesly for this length 
-: ${RESTART:=2} # restart this many times  
-: ${WALLTIME:='02:00:00'}
+: ${RESTART:=1} # restart this many times  
+: ${WALLTIME:='01:00:00'}
 : ${PECOUNT:=T} # T=32, S=64, M=96, L=128, X1=502
-: ${ACCOUNT:=nn9873k}
+: ${ACCOUNT:=nn9039k}
 : ${MAX_PARALLEL_STARCHIVE:=30}
 
 # general settings 

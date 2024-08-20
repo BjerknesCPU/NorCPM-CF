@@ -36,10 +36,13 @@ betzy)
   source /cluster/installations/lmod/lmod/init/sh
   module --quiet restore system
   module load StdEnv
-  module load NCO/5.1.9-iomkl-2022a
-  module load netCDF-Fortran/4.6.0-iompi-2022a
-  module load iompi/2022a
-  #module load imkl/2020.1.217-iompi-2020a
+  #module load NCO/5.1.9-iomkl-2022a
+  #module load netCDF-Fortran/4.6.0-iompi-2022a
+  #module load iompi/2022a
+  module load NCO/4.9.5-iompi-2020a
+  module load netCDF-Fortran/4.5.2-iompi-2020a
+  module load iompi/2020a
+  module load imkl/2020.1.217-iompi-2020a
   module load CMake/3.12.1
   export MKL_DEBUG_CPU_TYPE=5
   ulimit -s unlimited

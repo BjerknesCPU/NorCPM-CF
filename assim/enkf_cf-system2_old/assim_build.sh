@@ -14,13 +14,8 @@
 echo + build CLM DA
 mkdir -p $CLMDAROOT
 cd $CLMDAROOT
-cp -r $ASSIMROOT/SM_DAstandaloneApplication .
-cp -r $ASSIMROOT/clmda.sh .
-#cp -r $ASSIMROOT/LDAstandaloneApplication .
-#cp -r $ASSIMROOT/SM_DAl1standaloneApplication .
-#sed -e "s+enssize=en+enssize=${ENSSIZE}+g" -e "s+infl_fac=infl+infl_fac=${infl}+g" $ASSIMROOT/clmda.sh > clmda.sh
-#sed -e "s+LDA_START=YYYYMM+LDA_START=${LDA_START}+g" -e "s+LDA_END=YYYYMM+LDA_END=${LDA_END}+g" $ASSIMROOT/clmda.sh > clmda.sh
-#touch DOCLMDA
+cp -f $ASSIMROOT/clmda.sh .
+touch DOCLMDA
 
 echo + build EnKF
 mkdir -p $ANALYSISROOT/bld/EnKF/TMP

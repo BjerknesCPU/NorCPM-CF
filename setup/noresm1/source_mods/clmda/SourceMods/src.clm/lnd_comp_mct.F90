@@ -568,9 +568,9 @@ contains
     logical  :: lpause  !! for DA 
     logical  :: ldoclmda
    ! character(len=256) :: da_filename !! for DA
-    character(len=512) ::da_filename,  rundir = ' '
+    character(len=512) ::da_filename,  rundir = ' ', fnwithymd
     character(len=2) :: member
-
+    character(len=10) :: symd
 !
 ! !REVISION HISTORY:
 ! Author: Mariana Vertenstein
@@ -696,6 +696,8 @@ contains
        ! Run clm
        
        ! Pause and resume
+       write(fnwithymd,'(a,i8,a)')'./inputdata/obs/SM/C3s_sm_obs_',ymd,'.nc'
+       write(symd,'(i8)')ymd
        if (masterproc) then 
          write(*,'(a,i8,a,i5)')'Now is ',ymd,'-',tod
          if (len_trim(rundir) .eq. 0) then
@@ -703,20 +705,22 @@ contains
            member = rundir(LEN_TRIM(rundir)-5:LEN_TRIM(rundir)-4)
          endif
        endif
-       if (tod .eq. dtime) then  !! first time step from restart
-         inquire(file='../../CLMDA/DOCLMDA',exist=ldoclmda)
+       if (tod .eq. 45000) then  !! stopping at  midday (45000) , first time step after restart(dtime)
+         inquire(file=trim(fnwithymd),exist=ldoclmda)
+         write(*,*)'checking file:',trim(fnwithymd), ldoclmda
          if (ldoclmda) then
-       
+         
+         write(*,'(a,a)')'Found SM observation file:',trim(fnwithymd) 
          !! dump restart
 
-         da_filename = "../../CLMDA/clm2.rda."//member//".nc"
+         da_filename = "../../CLMDA/clm2.rda."//member//'-'//trim(symd)//".nc"
          call restFile_write( da_filename, .false., rdate=rdate ,da=.true.)
          
          if (masterproc)then
             write(*,'(a,i8,i5)')'Pause at ',ymd,tod
             open(unit=999,file='../../CLMDA/PAUSE'//member)
             close(999)
-            call system('cd ../../CLMDA; ./clmda.sh '//trim(rdate) )
+            if (member .eq. '01' ) call system('cd ../../CLMDA; ./clmda.sh '// trim(symd) )
             lpause = .true.
             do while ( lpause )
                call sleepqq(100) !! for sleep 0.1 sec
