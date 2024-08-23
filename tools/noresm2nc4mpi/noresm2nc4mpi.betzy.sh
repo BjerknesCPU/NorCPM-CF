@@ -3,9 +3,10 @@
 source /cluster/installations/lmod/lmod/init/sh
 module --quiet restore system
 module load StdEnv
-module load netCDF/4.7.4-iompi-2020a
-module load NCO/4.9.5-iompi-2020a
-module load iompi/2020a    
+module load intel/2022a
+module load iompi/2022a
+module load netCDF/4.9.0-iompi-2022a
+module load NCO/5.1.9-iomkl-2022a 
 
 ### CUSTOMIZE BEGIN ###
 CASEDIR=$1
@@ -127,9 +128,10 @@ cat <<EOF> `basename $0 .sh`_${LID}.slurm
 source /cluster/installations/lmod/lmod/init/sh
 module --quiet restore system
 module load StdEnv
-module load netCDF/4.7.4-iompi-2020b
-module load NCO/4.9.5-iompi-2020a
-module load iompi/2020b
+module load intel/2022a
+module load iompi/2022a
+module load netCDF/4.9.0-iompi-2022a
+module load NCO/5.1.9-iomkl-2022a
 
 cd ${CASEDIR} 
 
