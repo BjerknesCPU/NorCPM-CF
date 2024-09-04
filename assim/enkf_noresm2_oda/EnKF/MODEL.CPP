@@ -1,3 +1,4 @@
+#define FAST
 #undef TEST_2D
 #undef LINUX
 #undef DEBUG

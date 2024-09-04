@@ -90,6 +90,9 @@ program EnKF
   real, allocatable, dimension(:)   :: d ! d - Hx
 
   integer k, m
+#ifdef FAST
+  integer k2 
+#endif
 
   ! "New" variables used in the parallelization 
   integer, dimension(:,:), allocatable :: nlobs_array
@@ -268,7 +271,12 @@ program EnKF
               dpfld(:,:)=0
            end if !field level not in the mixed layer
         endif ! not dp
-        do k = 1, ENSSIZE
+#ifdef FAST
+       do k2 = 1, ENSSIZE
+           k = mod(k2 + fieldlevel(m) -1,ENSSIZE) + 1
+#else
+       do k = 1, ENSSIZE
+#endif
            write(cmem, '(i3.3)') k
            memfile = 'forecast' // cmem
            ! reshaping and conversion to real(4)
@@ -293,7 +301,12 @@ program EnKF
         !filled up empty layer with ensemble average value
         if ( trim(fieldnames(m)) /= 'dp' ) then
            if (fieldlevel(m)>=3) then    
+#ifdef FAST
+              do k2 = 1, ENSSIZE
+                 k = mod(k2 + fieldlevel(m) -1,ENSSIZE) + 1
+#else
               do k = 1, ENSSIZE
+#endif
                  do i = 1, idm*jdm
                     !10 cm
                     if( dpfld(i, k)<9806. .and. nb_ave(i)>0 ) then
@@ -315,7 +328,12 @@ program EnKF
 
      do m = m1, m2
         fieldcounter = (m - my_first_iteration) + 1
+#ifdef FAST
+        do k2 = 1, ENSSIZE
+           k = mod(k2 + fieldlevel(m) -1,ENSSIZE) + 1
+#else
         do k = 1, ENSSIZE
+#endif
            write(cmem,'(i3.3)') k
            memfile = 'forecast' // cmem
 !           memfile = 'analysis' // cmem

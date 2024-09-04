@@ -89,7 +89,7 @@ ODA () {
     ln -sf $OCNGRIDFILE grid.nc 
 
     echo +++ prepare observations
-    time srun -n 1 -N 1 ./prep_obs
+    time mpirun -n 1 --hostfile hostfile_da ./prep_obs
     mv observations.uf observations.uf_${OBSTYPE}.$PRODUCER
 
     if (( $COMB_ASSIM ))
@@ -101,7 +101,7 @@ ODA () {
       cat $ASSIMROOT/enkf.prm_${ENKF_CNT} | sed -e "s/XXX/$RFACTOR/" -e "s/enssize =.*/enssize = $ENSSIZE/g" > enkf.prm
 
       echo +++ CALL ENKF
-      time srun -n $NTASKS_ODA -N 1 ./EnKF enkf.prm
+      time mpirun -n $NTASKS_ENKF --hostfile hostfile_da ./EnKF enkf.prm
       mv enkf_diag.nc enkf_diag_${ENKF_CNT}.nc      
       mv tmpX5.uf tmpX5_${ENKF_CNT}.uf
 
@@ -118,7 +118,7 @@ ODA () {
 
 while [ ! -e NORESM_FINISHED ]
 do
-  [ `ls BLOM_PAUSE_* | wc -l` -eq $ENSSIZE ] && ODA
+  [ `ls | grep BLOM_PAUSE_ | wc -l` -eq $ENSSIZE ] && ODA
   sleep 0.1 
 done 
 

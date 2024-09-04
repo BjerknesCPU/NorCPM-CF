@@ -97,7 +97,7 @@ where <myuser> should we replace with your unix user.
 ### Build assimilation code separately from experiment (for testing) 
 
 The assimilation code will be compiled for each new experiment that uses 
-assimilation when calling the `setup_experiment.sh` script. 
+assimilation when calling the `create_experiment.sh` script. 
 
 For debugging and testing, it is also possible to build the assimilation 
 code in stand-alone manner with e.g. 
@@ -125,14 +125,14 @@ Change to your personalized setup folder with
 
 Set up a new experiment with 
 
-    ./setup_experiment.sh <path to experiment settings file> [VAR1=value1 VAR2=value2 ...]
+    ./create_experiment.sh <path to experiment settings file> [VAR1=value1 VAR2=value2 ...]
 
 where `<path to experiment settings file>` points to one of the experimental 
 settings files in the settings sub-directory. 
 
 For example 
 
-    ./setup_experiment.sh ../settings/norcpm1-1_historical.sh ENSSIZE=15
+    ./create_experiment.sh ../settings/norcpm1-1_historical.sh ENSSIZE=15
     
 will set up a no-assimilation historical experiment with 15 simulation members.
 
@@ -151,7 +151,7 @@ Launch the experiment with
 
 Running  
 
-    ./setup_experiment.sh ../settings/norcpm1-1_historical.sh ENSSIZE=15
+    ./submit_experiment.sh ../settings/norcpm1-1_historical.sh ENSSIZE=15
     
 will submit the historical experiment created in the previous example.
 
@@ -174,7 +174,7 @@ diagnostic output configuration of th simulation members.
 
 Prepare the experiment as usual, for example with  
 
-    ./setup_experiment.sh ../settings/norcpm1-1_historical.sh
+    ./create_experiment.sh ../settings/norcpm1-1_historical.sh
 
 Change to the configuration directory of the first simulation member in 
 
@@ -186,12 +186,12 @@ Make modifications to the code (by placing alternative code in SourceMods sub-
 directory and then rebuild) and/or modifications to the output configuration 
 (edit bld.nml.csh-files in Buildconf directory).
 
-Rerun the `setup_experiment.sh` script but this time with the arguments 
+Rerun the `create_experiment.sh` script but this time with the arguments 
 `SKIP_CASE1=1` and `ASK_BEFORE_REMOVE=0`.
 
 For example, 
 
-    ./setup_experiment.sh ../settings/norcpm1-1_historical.sh SKIP_CASE1=1 ASK_BEFORE_REMOVE=0
+    ./create_experiment.sh ../settings/norcpm1-1_historical.sh SKIP_CASE1=1 ASK_BEFORE_REMOVE=0
 
 The `SKIP_CASE1` argument will force the script to skip the configuration of the 
 first simulation member. The settings of the existing first simulation member 

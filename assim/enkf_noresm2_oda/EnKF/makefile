@@ -70,6 +70,12 @@ clean:
 	@cat MODEL.CPP $*.F90 | $(CPP) $(CPPFLAGS) > ./TMP/$*.f90
 	@cd ./TMP ; $(CF90) -c $(FFLAGS) $(F90FLG) -o $*.o $*.f90
 
+EnKF.o: EnKF.F90
+	@echo "  $*".F90
+	@rm -f ./TMP/$*.f90
+	@cat MODEL.CPP $*.F90 | $(CPP) $(CPPFLAGS) > ./TMP/$*.f90
+	@cd ./TMP ; $(CF90) -c $(FFLAGS_NOAVX2) $(F90FLG) -o $*.o $*.f90
+
 %.o: %.F
 	@echo "  $*".F
 	@rm -f ./TMP/$*.f

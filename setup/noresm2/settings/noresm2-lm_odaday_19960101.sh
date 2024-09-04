@@ -38,7 +38,8 @@
 # assimilation settings
 : ${ASSIMROOT:=$SETUPROOT/../../assim/enkf_noresm2_oda}
 : ${MEAN_MOD_DIR:=$INPUTDATA_ASSIM/enkf/$RES/NorESM2-LM-CMIP6}
-: ${NTASKS_ODA:=128}
+: ${NTASKS_DA:=128}
+: ${NTASKS_ENKF:=108}
 : ${OCNGRIDFILE:=$INPUTDATA/ocn/blom/grid/grid_tnx1v4_20170622.nc}
 : ${OBSLIST:='TEM SAL SST'}
 : ${PRODUCERLIST:='EN422 EN422 NOAA'}

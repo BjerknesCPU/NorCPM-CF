@@ -100,7 +100,9 @@ contains
     integer :: rsize
     integer :: ios
     integer :: o
-
+#ifdef FAST
+    integer :: fsize 
+#endif
     if (nobs >= 0) then
        return
     end if
@@ -113,6 +115,11 @@ contains
        stop
     end if
     inquire(iolength = rsize) record
+#ifdef FAST
+    inquire(file='observations.uf', SIZE=fsize)
+    nobs = fsize/rsize/4 
+    if (master) write(*,*) 'm_obs nobs=',nobs
+#else    
     open(10, file = 'observations.uf', form = 'unformatted',&
          access = 'direct', recl = rsize, status = 'old')
 
@@ -128,13 +135,16 @@ contains
        end if
        o = o + 1
     enddo
+    close(10)
+#endif 
+
+    
 
     allocate(obs(nobs))
 
     ! PS - there were problem with using rewind(): g95 reported:
     ! "Cannot REWIND a file opened for DIRECT access". Therefore reopen.
     !
-    close(10)
     open(10, file = 'observations.uf', form = 'unformatted',&
          access = 'direct', recl = rsize, status = 'old')
     do o = 1, nobs
