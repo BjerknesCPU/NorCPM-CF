@@ -1,6 +1,4 @@
-# NorCPMX - Norwegian Climate Prediction Model  
-
-Updated: 2024.09.04 (Ingo.Bethke@uib.no) 
+# NorCPM-CF - Norwegian Climate Prediction Model for Climate Futures 
 
 ## Description 
 
@@ -34,9 +32,9 @@ Install NorCPM in the nn9039k project space with
 
     mkdir -p /cluster/projects/nn9039k/people/$USER
     cd /cluster/projects/nn9039k/people/$USER 
-    git clone ssh://git@github.com/BjerknesCPU/NorCPMX.git NorCPMX
+    git clone ssh://git@github.com/BjerknesCPU/NorCPM-CF.git NorCPM-CF
 
-NorCPM is installed in `/cluster/projects/nn9039k/people/$USER/NorCPMX`
+NorCPM is installed in `/cluster/projects/nn9039k/people/$USER/NorCPM-CF`
 
 ## Setting up and running experiments 
 
@@ -52,7 +50,7 @@ with setting files stored in
 
 with NORCPMROOT set to
 
-    $NORCPMROOT=/cluster/projects/nn9039k/people/$USER/NorCPMX
+    $NORCPMROOT=/cluster/projects/nn9039k/people/$USER/NorCPM-CF
 
 The folder "noresm1" is version controlled and its content should only be 
 changed if these changes are intended to be committed to the git-repository. 
@@ -111,7 +109,7 @@ This will compile the assimilation code into
 
 ### Download and install NorESM code
 
-To download NorESM2 from github and install it in the NorCPMX structure 
+To download NorESM2 from github and install it in the NorCPM-CF structure 
 execute  
 
      cd $NORCPMROOT/ensemble/noresm2
