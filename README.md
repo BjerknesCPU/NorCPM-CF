@@ -1,6 +1,6 @@
 # NorCPMX - Norwegian Climate Prediction Model  
 
-Created: 2024.08.15 (Ingo.Bethke@uib.no) 
+Updated: 2024.09.04 (Ingo.Bethke@uib.no) 
 
 ## Description 
 
@@ -44,11 +44,11 @@ NorCPM is installed in `/cluster/projects/nn9039k/people/$USER/NorCPMX`
 
 Scripts for creating and running NorCPM experiments with NorESM1 are in 
 
-    $NORCPMROOT/setup/noresm1 
+    $NORCPMROOT/ensemble/noresm1 
 
 with setting files stored in   
 
-    $NORCPMROOT/setup/noresm1/settings 
+    $NORCPMROOT/ensemble/noresm1/settings 
 
 with NORCPMROOT set to
 
@@ -61,7 +61,7 @@ copy of the folder that is not git controlled.
 
 This can be done with e.g.
 
-    cd $NORCPMROOT/setup/ 
+    cd $NORCPMROOT/ensemble/ 
     cp -rpv noresm1 noresm1_$USER
 
 If the folder should not be subject to git-version control then add a new entry 
@@ -97,7 +97,7 @@ where <myuser> should we replace with your unix user.
 ### Build assimilation code separately from experiment (for testing) 
 
 The assimilation code will be compiled for each new experiment that uses 
-assimilation when calling the `create_experiment.sh` script. 
+assimilation when calling the `create_ensemble.sh` script. 
 
 For debugging and testing, it is also possible to build the assimilation 
 code in stand-alone manner with e.g. 
@@ -114,25 +114,25 @@ This will compile the assimilation code into
 To download NorESM2 from github and install it in the NorCPMX structure 
 execute  
 
-     cd $NORCPMROOT/setup/noresm2
+     cd $NORCPMROOT/ensemble/noresm2
      ./install_noresm2.sh    
 
 ### Setting up a new experiment 
 
 Change to your personalized setup folder with 
 
-    cd $NORCPMROOT/setup/noresm1_$USER 
+    cd $NORCPMROOT/ensemble/noresm1_$USER 
 
 Set up a new experiment with 
 
-    ./create_experiment.sh <path to experiment settings file> [VAR1=value1 VAR2=value2 ...]
+    ./create_ensemble.sh <path to experiment settings file> [VAR1=value1 VAR2=value2 ...]
 
 where `<path to experiment settings file>` points to one of the experimental 
 settings files in the settings sub-directory. 
 
 For example 
 
-    ./create_experiment.sh ../settings/norcpm1-1_historical.sh ENSSIZE=15
+    ./create_ensemble.sh ../settings/norcpm1-1_historical.sh ENSSIZE=15
     
 will set up a no-assimilation historical experiment with 15 simulation members.
 
@@ -147,11 +147,11 @@ simulation members in `$NORCPMROOT/cases/$EXPERIMENT` and run directories in
 
 Launch the experiment with
 
-    ./submit_experiment.sh <path to experiment settings file> [VAR1=value1 VAR2=value2 ...]
+    ./submit_ensemble.sh <path to experiment settings file> [VAR1=value1 VAR2=value2 ...]
 
 Running  
 
-    ./submit_experiment.sh ../settings/norcpm1-1_historical.sh ENSSIZE=15
+    ./submit_ensemble.sh ../settings/norcpm1-1_historical.sh ENSSIZE=15
     
 will submit the historical experiment created in the previous example.
 
@@ -174,7 +174,7 @@ diagnostic output configuration of th simulation members.
 
 Prepare the experiment as usual, for example with  
 
-    ./create_experiment.sh ../settings/norcpm1-1_historical.sh
+    ./create_ensemble.sh ../settings/norcpm1-1_historical.sh
 
 Change to the configuration directory of the first simulation member in 
 
@@ -186,12 +186,12 @@ Make modifications to the code (by placing alternative code in SourceMods sub-
 directory and then rebuild) and/or modifications to the output configuration 
 (edit bld.nml.csh-files in Buildconf directory).
 
-Rerun the `create_experiment.sh` script but this time with the arguments 
+Rerun the `create_ensemble.sh` script but this time with the arguments 
 `SKIP_CASE1=1` and `ASK_BEFORE_REMOVE=0`.
 
 For example, 
 
-    ./create_experiment.sh ../settings/norcpm1-1_historical.sh SKIP_CASE1=1 ASK_BEFORE_REMOVE=0
+    ./create_ensemble.sh ../settings/norcpm1-1_historical.sh SKIP_CASE1=1 ASK_BEFORE_REMOVE=0
 
 The `SKIP_CASE1` argument will force the script to skip the configuration of the 
 first simulation member. The settings of the existing first simulation member 
@@ -205,7 +205,7 @@ not intact anymore.
 
 This can be achieved via setting appropriate values in the settings file of the 
 experiment as demonstrated in 
-`$NORCPMROOT/setup/noresm1/settings/norcpm-cf-system1_assim_19811115_continue20220915.sh`
+`$NORCPMROOT/ensemble/noresm1/settings/norcpm-cf-system1_assim_19811115_continue20220915.sh`
 IMPORTANTLY:
 
 The case names must be identically to original ones. 
@@ -221,7 +221,7 @@ continued, matching the date of the restart files e.g. `2022-09-15`.
 `SKIP_ASSIM_FIRST` should be set to 1 if an assimilation update has already 
 been applied to the restart conditions. 
 
-If the above conditions are met then the `run_experiment.sh` script will 
+If the above conditions are met then the `run_ensemble.sh` script will 
 automatically set `CONTINUE_RUN=TRUE` and the simulations will continue 
 from the restart data as if running the original simulations. 
 
