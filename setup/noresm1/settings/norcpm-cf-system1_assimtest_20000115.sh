@@ -2,7 +2,7 @@
 # USE VARNAME=VALUE ARGUMENT WHEN CALLING SCRIPT TO OVERRIDE DEFAULTS 
 
 # experiment settings
-: ${EXPERIMENT:=norcpm-cf-system1_clmdatest} # case prefix, not including _YYYYMMDD_memXX suffix 
+: ${EXPERIMENT:=norcpm-cf-system1_assimtest} # case prefix, not including _YYYYMMDD_memXX suffix 
 : ${MEMBER1:=01} # first member  
 : ${ENSSIZE:=16} # number of members 
 : ${COMPSET:=N20TREXTAERCNCF1}
@@ -28,16 +28,12 @@
 
 # general settings 
 : ${CASESROOT:=$SETUPROOT/../../cases}
-: ${CCSMROOT:=$SETUPROOT/../../models/noresm1}
+: ${CCSMROOT:=$SETUPROOT/../../model/noresm1}
 : ${ASK_BEFORE_REMOVE:=1} # 1=will ask before removing existing cases 
 : ${VERBOSE:=1} # set -vx option in all scripts
 : ${SKIP_CASE1:=0} # skip creating first/template case, assume it exists already 
 : ${SDATE_PREFIX:=} # recommended are either empty or "s" 
 : ${MEMBER_PREFIX:=mem} # recommended are either empty or "mem" 
-
-
-# Source code Modifications
-: ${SOURCE_MODS:=$SETUPROOT/source_mods/clmda}
 
 # assimilation settings
 : ${ASSIMROOT:=$SETUPROOT/../../assim/enkf_cf-system1}

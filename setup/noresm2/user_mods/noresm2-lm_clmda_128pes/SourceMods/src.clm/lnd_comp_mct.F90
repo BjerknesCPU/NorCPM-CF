@@ -358,7 +358,7 @@ contains
     logical  :: ldoclmda
     character(len=512) ::da_filename,  rundir = ' ', fnwithymd, pause_file
     character(len=3) :: member
-    character(len=10) :: symd 
+    character(len=12) :: symd 
 #endif
     !---------------------------------------------------------------------------
 
@@ -441,7 +441,7 @@ contains
        nstep = get_nstep()
        caldayp1 = get_curr_calday(offset=dtime)
        if (nstep == 0) then
-	  doalb = .false. 	
+          doalb = .false.
        else if (nstep == 1) then 
           doalb = (abs(nextsw_cday- caldayp1) < 1.e-10_r8) 
        else
@@ -460,9 +460,9 @@ contains
 #ifdef CLMDA
        ! Pause and resume
        write(fnwithymd,'(a,i8,a)')'../../ANALYSIS/inputdata/obs/SM/C3s_sm_obs_',ymd,'.nc'
-       write(symd,'(i8)')ymd
+       write(symd,'(i4,a2,i2,a2,i2)') yr,mon,day  
        if (masterproc) then
-         write(*,'(a,i8,a,i5)')'CLMDA is now in',ymd,'-',tod
+         write(*,'(a,i8,a,i5)') 'CLMDA is now at',ymd,'-',tod
          if (len_trim(rundir) .eq. 0) then
           call getcwd(rundir)
            member = rundir(LEN_TRIM(rundir)-6:LEN_TRIM(rundir)-4)
@@ -473,32 +473,31 @@ contains
          write(*,*)'checking file:',trim(fnwithymd), ldoclmda
          if (ldoclmda) then
 
-         write(*,'(a,a)')'Found SM observation file:',trim(fnwithymd)
-         !! dump restart
+           write(*,'(a,a)')'Found SM observation file:',trim(fnwithymd)
 
-         da_filename = "../../ANALYSIS/clm.rda."//member//'.'//trim(symd)//".nc"
-         call restFile_write( bounds, da_filename, rdate, .false. , .true.)
+           da_filename = "../../ANALYSIS/clm.rda."//member//'.'//trim(symd)//".nc"
+           call restFile_write( bounds, da_filename, rdate, .false. , .true.)
 
-         if (masterproc)then
-            write(*,'(a,i8,i5)')'Pause at ',ymd,tod
-           pause_file = '../../ANALYSIS/CLM_PAUSE_'//member//'_'//trim(symd) 
-            open(unit=999,file=pause_file)
-            close(999)
-            lpause = .true.
-            do while ( lpause )
-               call sleepqq(100) !! for sleep 0.1 sec
-               inquire(file=pause_file,exist=lpause)
-            end do
-            write(*,*)'Pause finished, continue run'
-         end if
-         call t_barrierf('pause', mpicom)
-         call restFile_read( bounds,  da_filename, glc_behavior)
-         if (masterproc)then
+           if (masterproc)then
+              write(*,'(a,i8,i5)')'Pause at ',ymd,tod
+              pause_file = '../../ANALYSIS/CLM_PAUSE_'//member//'_'//trim(symd) 
+              open(unit=999,file=pause_file)
+              close(999)
+              lpause = .true.
+              do while ( lpause )
+                call sleepqq(100) !! for sleep 0.1 sec
+                inquire(file=pause_file,exist=lpause)
+              end do
+              write(*,*)'Pause finished, continue run'
+           end if
+           call t_barrierf('pause', mpicom)
+           call restFile_read( bounds,  da_filename, glc_behavior)
+           if (masterproc)then
              open(unit=999,file=da_filename, status='old')
              close(999, status='delete')
-        end if
-       end if
-
+           end if
+         end if
+       end if 
 #endif
 
 

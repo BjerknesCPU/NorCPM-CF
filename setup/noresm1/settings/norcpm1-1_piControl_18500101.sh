@@ -30,7 +30,7 @@
 
 # general settings 
 : ${CASESROOT:=$SETUPROOT/../../cases}
-: ${CCSMROOT:=$SETUPROOT/../../models/noresm1}
+: ${CCSMROOT:=$SETUPROOT/../../model/noresm1}
 : ${ASK_BEFORE_REMOVE:=1} # 1=will ask before removing existing cases 
 : ${VERBOSE:=0} # set -vx option in all scripts
 : ${SKIP_CASE1:=0} # skip creating first/template case, assume it exists already 

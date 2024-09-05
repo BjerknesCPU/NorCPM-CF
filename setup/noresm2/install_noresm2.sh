@@ -18,7 +18,7 @@ echo Executed command: $0 $*
 echo Git repository hashtag: `git log -1 --pretty=format:%H 2> /dev/null || echo not available`
 echo
 
-cd $SETUPROOT/../../models 
+cd $SETUPROOT/../../model 
 
 git clone -b release-noresm2.0.7 --single-branch ssh://git@github.com/NorESMhub/NorESM noresm2
 

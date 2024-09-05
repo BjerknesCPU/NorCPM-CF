@@ -6,7 +6,7 @@
 : ${ASSIMCODE_PREP_OBS:=$ASSIMROOT/prep_obs}
 : ${ASSIMCODE_ENSAVE_FIXENKF:=$ASSIMROOT/ensave_fixenkf} 
 : ${ASSIMCODE_MICOM_INIT:=$ASSIMROOT/micom_init}
-: ${SETUPROOT:=../../ensemble/noresm1} ; . $SETUPROOT/settings/setmach.sh 
+: ${SETUPROOT:=../../setup/noresm1} ; . $SETUPROOT/settings/setmach.sh 
 : ${ANALYSISROOT:=$WORK/noresm/assim_standalone/`basename $ASSIMROOT`} 
 
 echo + build EnKF

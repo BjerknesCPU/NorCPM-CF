@@ -11,24 +11,24 @@
 
 # initialisation settings
 : ${RUN_TYPE:=branch} # branch: reference ensemble, hybrid: single reference simulation  
-: ${REF_EXPERIMENT:=norcpm-cf-system1_assim_19811115} # name of reference experiment, including start date if necessary
+: ${REF_EXPERIMENT:=NorESM1-ME_historicalExt_noAssim_19800101} # name of reference experiment, including start date if necessary
 : ${REF_SUFFIX_MEMBER1:=_mem01} # reference run used to initialise first member for 'branch', all members for 'hybrid' 
-: ${REF_PATH_LOCAL_MEMBER1:=/cluster/projects/nn9039k/inputdata/ccsm4_init/$REF_EXPERIMENT/$REF_EXPERIMENT$REF_SUFFIX_MEMBER1}
+: ${REF_PATH_LOCAL_MEMBER1:=$INPUTDATA/ccsm4_init/$REF_EXPERIMENT/$REF_EXPERIMENT$REF_SUFFIX_MEMBER1}
 : ${REF_PATH_REMOTE_MEMBER1:=}
-: ${REF_DATES:=2022-09-15} # multiple reference dates only for RUN_TYPE=hybrid
+: ${REF_DATES:=1981-11-15} # multiple reference dates only for RUN_TYPE=hybrid
 
 # job settings
 : ${STOP_OPTION:=nmonths} # units for run length specification STOP_N 
 : ${STOP_N:=1} # run continuesly for this length 
-: ${RESTART:=6} # restart this many times  
+: ${RESTART:=2} # restart this many times  
 : ${WALLTIME:='24:00:00'}
 : ${PECOUNT:=T} # T=32, S=64, M=96, L=128, X1=502
 : ${ACCOUNT:=nn9873k}
 : ${MAX_PARALLEL_STARCHIVE:=30}
- 
+
 # general settings 
 : ${CASESROOT:=$SETUPROOT/../../cases}
-: ${CCSMROOT:=$SETUPROOT/../../models/noresm1}
+: ${CCSMROOT:=$SETUPROOT/../../model/noresm1}
 : ${SUBMIT_AFTER_SETUP:=0} # auto-submit after setting up experiment  
 : ${ASK_BEFORE_REMOVE:=1} # 1=will ask before removing existing cases 
 : ${VERBOSE:=1} # set -vx option in all scripts
@@ -41,7 +41,8 @@
 : ${MEAN_MOD_DIR:=$INPUTDATA/enkf/$RES/norcpm-cf-system1}
 : ${ENSAVE:=1} # diagnose ensemble averages
 : ${SKIP_ASSIM_START:=1} # 1 = skip DA at experiment start (before running model)  
-: ${SKIP_ASSIM_FIRST:=1} # 1 = skip first assimilation update also if experiment continues   
+: ${SKIP_ASSIM_FIRST:=0} # 1 = skip first assimilation update also if experiment continues   
+: ${SKIP_RUNNING_LAST:=0} # 1 = skip running model at experiment end (after assimilation) 
 : ${RFACTOR_START:=1} # inflation factor at experiment start 
 : ${COMPENSATE_ICE_FRESHWATER:=1} # only for enkf_cf-system1 
 : ${ENKF_NTASKS:=128}
