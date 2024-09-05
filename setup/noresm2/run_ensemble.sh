@@ -74,7 +74,7 @@ do
   scontrol show hostname $SLURM_NODELIST > hostfile 
   echo EXEROOT1=$EXEROOT1
   tail -$NODES_NORESM hostfile > $EXEROOT1/run/hostfile_noresm 
-  if [ $NODES_TOTAL -gt $NODES_NORESM ] 
+  if [[ $ASSIMROOT && $NODES_TOTAL -gt $NODES_NORESM ]] 
   then 
     NODES_DA=$((NODES_TOTAL-NODES_NORESM))
     head -$((NODES_TOTAL-NODES_NORESM)) hostfile > $ANALYSISROOT/hostfile_da 

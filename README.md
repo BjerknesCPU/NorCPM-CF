@@ -42,11 +42,11 @@ NorCPM is installed in `/cluster/projects/nn9039k/people/$USER/NorCPM-CF`
 
 Scripts for creating and running NorCPM experiments with NorESM1 are in 
 
-    $NORCPMROOT/ensemble/noresm1 
+    $NORCPMROOT/setup/noresm1 
 
 with setting files stored in   
 
-    $NORCPMROOT/ensemble/noresm1/settings 
+    $NORCPMROOT/setup/noresm1/settings 
 
 with NORCPMROOT set to
 
@@ -59,7 +59,7 @@ copy of the folder that is not git controlled.
 
 This can be done with e.g.
 
-    cd $NORCPMROOT/ensemble/ 
+    cd $NORCPMROOT/setup/ 
     cp -rpv noresm1 noresm1_$USER
 
 If the folder should not be subject to git-version control then add a new entry 
@@ -112,14 +112,14 @@ This will compile the assimilation code into
 To download NorESM2 from github and install it in the NorCPM-CF structure 
 execute  
 
-     cd $NORCPMROOT/ensemble/noresm2
+     cd $NORCPMROOT/setup/noresm2
      ./install_noresm2.sh    
 
 ### Setting up a new experiment 
 
 Change to your personalized setup folder with 
 
-    cd $NORCPMROOT/ensemble/noresm1_$USER 
+    cd $NORCPMROOT/setup/noresm1_$USER 
 
 Set up a new experiment with 
 
@@ -203,7 +203,7 @@ not intact anymore.
 
 This can be achieved via setting appropriate values in the settings file of the 
 experiment as demonstrated in 
-`$NORCPMROOT/ensemble/noresm1/settings/norcpm-cf-system1_assim_19811115_continue20220915.sh`
+`$NORCPMROOT/setup/noresm1/settings/norcpm-cf-system1_assim_19811115_continue20220915.sh`
 IMPORTANTLY:
 
 The case names must be identically to original ones. 

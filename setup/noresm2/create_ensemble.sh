@@ -102,33 +102,6 @@ do
   REF_CASE=$REF_EXPERIMENT$REF_SUFFIX
   REF_CASE1=$REF_EXPERIMENT$REF_SUFFIX_MEMBER1
   REF_PATH=$REF_PATH_LOCAL/$REF_DATE
-  if [ $RUN_TYPE == hybrid ]
-  then 
-    if [ $((10#$MEMBER)) -ne 1 ]
-    then 
-      if [ $REF_MEMBER1 ] 
-      then 
-        REF_PATH_TRY=${REF_PATH}_${MEMBER_PREFIX}`printf %02d $(( 10#$MEMBER + 10#$REF_MEMBER1 - 10#$MEMBER1 ))`
-      else 
-        REF_PATH_TRY=${REF_PATH}_${MEMBER_PREFIX}`printf %02d $(( 10#$MEMBER + 1 - 10#$MEMBER1 ))`
-      fi 
-      if [ -e $REF_PATH_TRY ]
-      then 
-        REF_PATH=$REF_PATH_TRY 
-      fi 
-      #
-      if [ $REF_MEMBER1 ]
-      then
-        REF_PATH_TRY=${REF_PATH}_${MEMBER_PREFIX}`printf %03d $(( 10#$MEMBER + 10#$REF_MEMBER1 - 10#$MEMBER1 ))`
-      else
-        REF_PATH_TRY=${REF_PATH}_${MEMBER_PREFIX}`printf %03d $(( 10#$MEMBER + 1 - 10#$MEMBER1 ))`
-      fi
-      if [ -e $REF_PATH_TRY ]
-      then
-        REF_PATH=$REF_PATH_TRY
-      fi
-    fi
-  fi
   if [ ! -e $REF_PATH ]
   then
     echo cannot locate restart data in $REF_PATH . will keep trying   
@@ -198,6 +171,11 @@ do
       ./xmlchange --file env_run.xml --id RUN_REFDATE --val $START_DATE
     else 
       ./xmlchange --file env_run.xml --id RUN_REFDATE --val $REF_DATE
+    fi 
+    if [[ $ADD_PERTURBATION && $ADD_PERTURBATION -eq 1 ]]
+    then
+      sed -i -e '/pertlim/d' user_nl_cam
+      echo "pertlim = $((10#$MEMBER))e-6" >> user_nl_cam  
     fi 
 
     echo +++ CONFIGURE CASE 
