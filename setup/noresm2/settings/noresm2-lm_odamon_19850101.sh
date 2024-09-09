@@ -4,17 +4,18 @@
 # experiment settings
 : ${EXPERIMENT:=noresm2-lm_odamon} # case prefix, not including _YYYYMMDD_memXX suffix 
 : ${MEMBER1:=1} # first member  
-: ${ENSSIZE:=10} # number of members 
+: ${ENSSIZE:=20} # number of members 
 : ${COMPSET:=NHISTfrc2}
 : ${USER_MODS_DIR:=$SETUPROOT/user_mods/noresm2-lm_oda_128pes}   
 : ${RES:=f19_tn14}
-: ${START_DATE:=1996-01-01} # YYYY-MM-DD 
+: ${START_DATE:=1985-01-01} # YYYY-MM-DD 
 
 # initialisation settings
-: ${RUN_TYPE:=branch}  
-: ${REF_CASE_LIST:='noresm_ctl_19700101_19700101_mem01 noresm_ctl_19700101_19700101_mem02 noresm_ctl_19700101_19700101_mem03 noresm_ctl_19700101_19700101_mem04 noresm_ctl_19700101_19700101_mem05 noresm_ctl_19700101_19700101_mem06 noresm_ctl_19700101_19700101_mem07 noresm_ctl_19700101_19700101_mem08 noresm_ctl_19700101_19700101_mem09 noresm_ctl_19700101_19700101_mem10'} 
+: ${RUN_TYPE:=hybrid}  
+: ${REF_CASE_LIST:='noresm_ctl_19700101_19700101_mem01 noresm_ctl_19700101_19700101_mem02 noresm_ctl_19700101_19700101_mem03 noresm_ctl_19700101_19700101_mem04 noresm_ctl_19700101_19700101_mem05 noresm_ctl_19700101_19700101_mem06 noresm_ctl_19700101_19700101_mem07 noresm_ctl_19700101_19700101_mem08 noresm_ctl_19700101_19700101_mem09 noresm_ctl_19700101_19700101_mem10'} # loop over these cases 
 : ${REF_PATH_LOCAL:=$INPUTDATA/ccsm4_init/noresm_ctl_19700101_19700101}
-: ${REF_DATE:=1996-01-01} 
+: ${REF_DATE:=$START_DATE} 
+: ${ADD_PERTURBATION:=1} # only for RUN_TYPE=hybrid
 
 # job settings
 : ${STOP_OPTION:=nyears} # units for run length specification STOP_N 

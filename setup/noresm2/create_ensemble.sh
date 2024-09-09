@@ -23,18 +23,15 @@ echo Setting up experiment ${EXPERIMENT}, this can take some time
 echo + BEGIN LOOP OVER MEMBERS 
 for MEMBER in `seq -w $MEMBER1 $MEMBERN`
 do
-
+ 
   echo ++ PICK REFERENCE DATE
-  REF_DATE=$START_DATE
-  COUNT=0
-  for ITEM in $REF_DATES
-  do
-    COUNT=$((COUNT+1))
-    if [[ $COUNT -eq 1 || $COUNT -eq $((10#$MEMBER-10#$MEMBER1+1)) ]]
-    then 
-      REF_DATE=$ITEM
-    fi
-  done 
+  : ${REF_DATE:=$START_DATE} # set REF_DATE to START_DATE if REF_DATE nor REF_DATE_LIST set  
+  if [[ $REF_DATE_LIST ]]
+  then
+    NREF=`echo $REF_DATE_LIST | wc -w` 
+    REF_CASE=`echo $REF_DATE_LIST | cut -d' ' -f$(( ( ( $((10#$MEMBER-10#$MEMBER1+1)) - 1 ) % $NREF ) + 1 ))`
+  fi 
+  echo +++ Reference date for member $MEMBER set to: $REF_DATE
   #
   CASE=${EXPERIMENT}_${SDATE_PREFIX}${SDATE}_${MEMBER_PREFIX}$MEMBER
   RELPATH=$EXPERIMENT/${EXPERIMENT}_${SDATE_PREFIX}$SDATE/$CASE
@@ -75,37 +72,34 @@ do
   done
 
   echo ++ LOCATE REFERENCE CASE 
-  if [ $REF_SUFFIX_MEMBER1 ]
+  if [[ $REF_CASE_SUFFIX_MEMBER1 && $REF_CASE_LIST ]]
   then 
-    if [[ `echo $REF_SUFFIX_MEMBER1 | wc -c` -eq 4 || `echo $REF_SUFFIX_MEMBER1 | wc -c` -eq 7 ]]
-    then 
-      REF_MEMBER1=`echo $REF_SUFFIX_MEMBER1 | tail -3c`
-    else 
-      REF_MEMBER1=`echo $REF_SUFFIX_MEMBER1 | tail -4c`
-    fi
-    if [ $RUN_TYPE == branch ]
-    then 
-      if [[ `echo $REF_SUFFIX_MEMBER1 | wc -c` -eq 4 || `echo $REF_SUFFIX_MEMBER1 | wc -c` -eq 7 ]]
-      then 
-        REF_MEMBER=`printf %02d $(( 10#$MEMBER + 10#$REF_MEMBER1 - 10#$MEMBER1 ))`
-      else 
-        REF_MEMBER=`printf %03d $(( 10#$MEMBER + 10#$REF_MEMBER1 - 10#$MEMBER1 ))`
-      fi 
-    else
-      REF_MEMBER=$REF_MEMBER1
-    fi 
-    REF_SUFFIX=`basename $REF_SUFFIX_MEMBER1 $REF_MEMBER1`$REF_MEMBER
-    REF_PATH_LOCAL=`dirname $REF_PATH_LOCAL_MEMBER1`/`basename $REF_PATH_LOCAL_MEMBER1 $REF_MEMBER1`$REF_MEMBER
-  else 
-    REF_PATH_LOCAL=$REF_PATH_LOCAL_MEMBER1
+    echo either REF_PREFIX,REF_CASE_SUFFIX_MEMBER1 or REF_CASE_LIST have to be set. will quit 
+    exit  
+  fi 
+  if [[ $REF_CASE_LIST ]]
+  then
+    NREF=`echo $REF_CASE_LIST | wc -w` 
+    REF_CASE=`echo $REF_CASE_LIST | cut -d' ' -f$(( ( ( $((10#$MEMBER-10#$MEMBER1+1)) - 1 ) % $NREF ) + 1 ))`
   fi
-  REF_CASE=$REF_EXPERIMENT$REF_SUFFIX
-  REF_CASE1=$REF_EXPERIMENT$REF_SUFFIX_MEMBER1
-  REF_PATH=$REF_PATH_LOCAL/$REF_DATE
+  if [ $REF_CASE_SUFFIX_MEMBER1 ]
+  then 
+    if [[ `echo $REF_CASE_SUFFIX_MEMBER1 | wc -c` -eq 4 || `echo $REF_CASE_SUFFIX_MEMBER1 | wc -c` -eq 7 ]]
+    then 
+      REF_MEMBER1=`echo $REF_CASE_SUFFIX_MEMBER1 | tail -3c`
+      REF_MEMBER=`printf %02d $(( 10#$MEMBER + 10#$REF_MEMBER1 - 10#$MEMBER1 ))`
+    else 
+      REF_MEMBER1=`echo $REF_CASE_SUFFIX_MEMBER1 | tail -4c`
+      REF_MEMBER=`printf %03d $(( 10#$MEMBER + 10#$REF_MEMBER1 - 10#$MEMBER1 ))`
+    fi
+    REF_SUFFIX=`basename $REF_CASE_SUFFIX_MEMBER1 $REF_MEMBER1`$REF_MEMBER
+    REF_CASE=$REF_CASE_PREFIX$REF_SUFFIX
+  fi
+  REF_PATH=$REF_PATH_LOCAL/$REF_CASE/$REF_DATE
   if [ ! -e $REF_PATH ]
   then
     echo cannot locate restart data in $REF_PATH . will keep trying   
-    REF_PATH=$REF_PATH_LOCAL/rest/$REF_DATE-00000
+    REF_PATH=$REF_PATH_LOCAL/$REF_CASE/rest/$REF_DATE-00000
     if [ ! -e $REF_PATH ]
     then
       echo cannot locate restart data in $REF_PATH . will quit
@@ -141,6 +135,11 @@ do
     else 
       ./xmlchange --file env_run.xml --id RUN_REFDATE --val $REF_DATE
     fi 
+    if [[ $ADD_PERTURBATION && $ADD_PERTURBATION -eq 1 ]]
+    then
+      sed -i -e '/pertlim/d' user_nl_cam
+      echo "pertlim = $((10#$MEMBER))e-10" >> user_nl_cam  
+    fi 
 
     echo +++ CONFIGURE MEMBER 1 CASE 
     [ -e $USER_MODS_DIR/env_mach_pes.xml ] && cp -f $USER_MODS_DIR/env_mach_pes.xml . 
@@ -175,7 +174,7 @@ do
     if [[ $ADD_PERTURBATION && $ADD_PERTURBATION -eq 1 ]]
     then
       sed -i -e '/pertlim/d' user_nl_cam
-      echo "pertlim = $((10#$MEMBER))e-6" >> user_nl_cam  
+      echo "pertlim = $((10#$MEMBER))e-10" >> user_nl_cam  
     fi 
 
     echo +++ CONFIGURE CASE 

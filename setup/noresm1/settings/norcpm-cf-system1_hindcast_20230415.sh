@@ -2,7 +2,7 @@
 # USE VARNAME=VALUE ARGUMENT WHEN CALLING SCRIPT TO OVERRIDE DEFAULTS 
 
 # experiment settings
-: ${EXPERIMENT:=norcpm-cf-system1_hindcast1} # case prefix, not including _YYYYMMDD_memXX suffix 
+: ${EXPERIMENT:=norcpm-cf-system1_hindcast} # case prefix, not including _YYYYMMDD_memXX suffix 
 : ${MEMBER1:=01} # first member  
 : ${ENSSIZE:=60} # number of members 
 : ${COMPSET:=N20TREXTAERCNCF1}

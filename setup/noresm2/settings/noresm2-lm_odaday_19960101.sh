@@ -11,12 +11,11 @@
 : ${START_DATE:=1996-01-01} # YYYY-MM-DD 
 
 # initialisation settings
-: ${RUN_TYPE:=branch} # branch: reference ensemble, hybrid: single reference simulation  
-: ${REF_EXPERIMENT:=noresm_ctl_19700101_19700101} # name of reference experiment, including start date if necessary
-: ${REF_SUFFIX_MEMBER1:=_mem01} # reference run used to initialise first member for 'branch', all members for 'hybrid' 
-: ${REF_PATH_LOCAL_MEMBER1:=$INPUTDATA/ccsm4_init/$REF_EXPERIMENT/$REF_EXPERIMENT$REF_SUFFIX_MEMBER1}
-: ${REF_PATH_REMOTE_MEMBER1:=}
-: ${REF_DATES:=1996-01-01} # multiple reference dates only for RUN_TYPE=hybrid
+: ${RUN_TYPE:=branch}  
+: ${REF_CASE_PREFIX:=noresm_ctl_19700101_19700101} 
+: ${REF_CASE_SUFFIX_MEMBER1:=_mem01}  
+: ${REF_PATH_LOCAL:=$INPUTDATA/ccsm4_init/$REF_CASE_PREFIX}
+: ${REF_DATE:=1996-01-01} # multiple reference dates only for RUN_TYPE=hybrid
 
 # job settings
 : ${STOP_OPTION:=nyears} # units for run length specification STOP_N 

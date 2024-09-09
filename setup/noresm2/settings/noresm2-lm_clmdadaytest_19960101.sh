@@ -2,9 +2,9 @@
 # USE VARNAME=VALUE ARGUMENT WHEN CALLING SCRIPT TO OVERRIDE DEFAULTS 
 
 # experiment settings
-: ${EXPERIMENT:=noresm2-lm_clmdaday} # case prefix, not including _YYYYMMDD_memXX suffix 
+: ${EXPERIMENT:=noresm2-lm_clmdadaytest} # case prefix, not including _YYYYMMDD_memXX suffix 
 : ${MEMBER1:=1} # first member  
-: ${ENSSIZE:=10} # number of members 
+: ${ENSSIZE:=3} # number of members 
 : ${COMPSET:=NHISTfrc2}
 : ${USER_MODS_DIR:=$SETUPROOT/user_mods/noresm2-lm_clmda_128pes}   
 : ${RES:=f19_tn14}
@@ -21,7 +21,7 @@
 : ${STOP_OPTION:=nyears} # units for run length specification STOP_N 
 : ${STOP_N:=1} # run continuesly for this length 
 : ${RESTART:=0} # restart this many times  
-: ${WALLTIME:='01:00:00'}
+: ${WALLTIME:='00:30:00 --qos=devel'}
 : ${ACCOUNT:=nn9039k}
 
 # general settings 

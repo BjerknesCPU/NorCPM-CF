@@ -10,7 +10,13 @@ for START_DATE in $START_DATES
 do
   mkdir -p $RESDIR/$CASE/rest/$START_DATE
   cd $RESDIR/$CASE/rest/$START_DATE 
-  cp -uv $ADIR/$CASE/rest/$START_DATE/* . 
+  for FNAME in `ls $ADIR/$CASE/rest/$START_DATE`
+  do 
+    if [ ! -e `basename $FNAME .gz` ]
+    then 
+      cp -uv $ADIR/$CASE/rest/$START_DATE/$FNAME . 
+    fi
+  done
   find . -name "*.gz" -exec gunzip -f {} \; 
 done
 echo DONE

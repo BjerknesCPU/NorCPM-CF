@@ -3,7 +3,12 @@
 ## Description 
 
 A flexible, open-source code structure for NorCPM that integrates 
-assimilation, model code and setup scripts in a single repository.  
+assimilation, model code and setup scripts in a single repository  
+for use in Climate Futures and other prediction applications.
+
+## Resources
+
+- [NorCPM-CF overview](docs/NorCPM-CF_overview_20240904.pdf) 
 
 ## Installation on Betzy 
 
@@ -229,6 +234,8 @@ external forcing specification in the namelists of CAM and CLM will be ignored.
 
 ## Reference for settings variables 
 
+### noresm1
+
 Experiment settings
 
     EXPERIMENT       : Experiment name (without start-date and member suffixes)
@@ -236,7 +243,7 @@ Experiment settings
     ENSSIZE          : Number of members in ensemble 
     COMPSET          : Component and forcing configuration of the NorESM    
     RES              : grid configuration, always "f19_g16" for NorCPM1
-    START_DATE       : Start date (YYYY-MM-DD) start years for prediction) 
+    START_DATE       : Start date (YYYY-MM-DD)  
 
 Initialisation settings
 
@@ -275,12 +282,13 @@ General settings
 
 Assimilation settings
 
-    ENKFROOT          : Location of assimilation code
-    ENSAVE            : diagnose and archive ensemble averages 
+    ASSIMROOT         : Location of assimilation code
+    MEAN_MOD_DIR      : Location of model climatology data 
+    ENSAVE            : 1 = diagnose and archive ensemble averages 
     SKIP_ASSIM_START  : 1 = skip DA at experiment start (before running model) 
     SKIP_ASSIM_FIRST  : 1 = skip first assimilation update also if experiment continues   
     RFACTOR_START     : 8 = phase in assimilation at start
-                        1 = full assimilation from start
+                        1 = full assimilation from start 
     COMPENSATE_ICE_FRESHWATER : 1=add/remove freshwater to mixed layer to 
                       : componesate for sea ice removed/added by 
                       : assimilation ; must be 0 if ice not updated
@@ -292,4 +300,70 @@ Assimilation settings
     PRODUCERLIST      : observation products to be assimilated
     REF_PERIODLIST    : reference periods for observation types
     COMBINE_ASSIM     : sequence that controls sequential vs combined 
+                      : assimilation, always '0 0 1' for NorCPM1 
+
+
+### noresm2 
+
+Experiment settings
+
+    EXPERIMENT       : Experiment name (without start-date and member suffixes)
+    MEMBER1          : First member, default is 001
+    ENSSIZE          : Number of members in ensemble
+    COMPSET          : Component/forcing configuration of NorESM e.g. NHISTfrc2
+    RES              : grid configuration e.g. f19_tn14 or f09_tn14
+    START_DATE       : Start date (YYYY-MM-DD) 
+    USER_MODS_DIR    : Relative path to user-mods directory
+
+Initialisation settings
+
+    RUN_TYPE           : Default "branch", use "hybrid" if compset changes or if 
+                         ADD_PERTURBATION is set 
+    REF_CASE           : Single reference case used to initialise all members 
+    REF_CASE_LIST      : List of reference cases; the list is cycled through if 
+                         the number of reference cases < ENSSIZE, in which case 
+                         also ADD_PERTURBATION should be set
+    REF_CASE_PREFIX    : sets prefix of references cases (excluding _memXXX) 
+                         and must be used together with REF_CASE_SUFFIX_MEMBER1 
+                         but not together with REF_CASE_LIST    
+    REF_CASE_SUFFIX_MEMBER1 : suffix of first reference member (e.g., _mem01)
+    REF_DATE           : Reference date (set to START_DATE if not specified)
+    REF_DATE_LIST      : List of reference dates that is cycled though i.e. 
+                         different dates are picked for different members 
+    REF_PATH_LOCAL     : path to restarts e.g. /cluster/work/users/$USER/restarts 
+
+Job settings
+
+    STOP_OPTION       : Units for STOP_N, valid values are "nyears", "nmonths"
+                      : and "ndays"; must be "nmonths" for assimilation
+    STOP_N            : Simulation length; must be 1 for assimilation
+    RESTART           : Number of times to restart after STOP_N is reached; must
+                      : be 0 for assimilation experiments
+    WALLTIME          : Total walltime for STOP_N*(1+RESTART) simulation length
+    ACCOUNT           : CPU account name
+    MAX_PARALLEL_STARCHIVE : threads used for short-term archiving
+
+General settings
+
+    CASESROOT         : Location for configuration folders of simulations
+    CCSMROOT          : Location of Earth system model code
+    ASK_BEFORE_REMOVE : 1=will ask before removing existing cases
+    VERBOSE           : 1=set -vx option in all scripts
+    SKIP_CASE1        : 1=assume that first simulation member is already set up
+                      : and can serve as templated for other members
+    SDATE_PREFIX      : prefix for start-date, recommended is either empty or "s"
+    MEMBER_PREFIX     : prefix for member counter, recommended is either empty or "mem"
+
+Assimilation settings
+
+    ASSIMROOT         : Location of assimilation code
+    NTASKS_DA         : total number of mpi-tasks available for assimilation 
+    NTASKS_ENKF       : number of mpi-tasks used for EnKF
+    OCNGRIDFILE       : path to ocean grid file
+    OBSLIST           : observation types to be assimilated e.g. 'TEM SAL SST'
+    PRODUCERLIST      : observation products e.g. 'EN422 EN422 NOAA' 
+    FREQUENCYLIST     : update frequencies e.g. 'MONTH MONTH DAY'   
+    REF_PERIODLIST    : reference periods for observation types
+    COMBINE_ASSIM     : sequence that controls sequential vs combined
                       : assimilation, always '0 0 1' for NorCPM1
+
