@@ -17,7 +17,7 @@ for use in Climate Futures and other prediction applications.
 Visit github.com and create a github user account. 
 
 Send request to become member of BCPU group to ingo.bethke@uib.no 
-This is only necessary If you wish to developer the repository.    
+(only necessary if you wish to developer the repository)    
  
 ### Add public ssh key to github profile 
 
@@ -26,7 +26,7 @@ Create public ssh key on Betzy with
     cd $HOME/.ssh 
     ssh-keygen # press enter if asked for password phrase 
 
-This will generate a public ssh key is generate at `$HOME/.ssh/id_rsa.pub`  
+This will generate a public ssh key at `$HOME/.ssh/id_rsa.pub`  
 
 Open github.com in your browser, log into your github account and add
 your public ssh key from Betzy to your github profile. 
@@ -167,7 +167,7 @@ latest set of restarts present in the run directory.
 The frequency of restart dumps is controlled via the setting variables 
 `STOP_OPTION` and `STOP_N`. 
 
-#### Customizing simulation code and output 
+#### Customizing simulation code and output - noresm1 
 
 The directory of the first simulation member serves as a template for all other
 simulation members.
@@ -200,7 +200,15 @@ The `SKIP_CASE1` argument will force the script to skip the configuration of the
 first simulation member. The settings of the existing first simulation member 
 will then be applied to the other simulation members. 
 
-#### Recreating an old experiment and continuing it 
+#### Customizing simulation code and output - noresm2 
+
+Make a copy of one of the folders in `setup/noresm2/user_mods` and point to the new folder 
+by changing the value of USER_MODS_DIR the variable in the settings file of your experiment. 
+
+The code can be modified by changing the content in SourceMods and the diagnostic output 
+can be customized by changing the user_nml-files in the new user_mods folder.
+
+#### Recreating an old experiment and continuing it
 
 Occasionally, one wants to continue an old experiment that either has been run by 
 another user, or, for which the case and run directories for other reasons are 
