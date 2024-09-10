@@ -20,7 +20,7 @@ echo
 
 cd $SETUPROOT/../../model 
 
-git clone -b release-noresm2.0.7 --single-branch ssh://git@github.com/NorESMhub/NorESM noresm2
+git clone -b release-noresm2.0.7 --single-branch https://github.com/NorESMhub/NorESM.git noresm2
 
 cd noresm2
 
