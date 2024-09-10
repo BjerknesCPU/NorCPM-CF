@@ -6,7 +6,7 @@
 : ${MEMBER1:=1} # first member  
 : ${ENSSIZE:=3} # number of members 
 : ${COMPSET:=NHISTfrc2}
-: ${USER_MODS_DIR:=$SETUPROOT/user_mods/noresm2-lm_oda_128pes}   
+: ${USER_MODS_DIR:=$SETUPROOT/user_mods/noresm2-lm_128pes}   
 : ${RES:=f19_tn14}
 : ${START_DATE:=1985-01-01} # YYYY-MM-DD 
 
@@ -37,7 +37,8 @@
 # assimilation settings
 : ${ASSIMROOT:=$SETUPROOT/../../assim/enkf_noresm2_oda}
 : ${MEAN_MOD_DIR:=$INPUTDATA_ASSIM/enkf/$RES/NorESM2-LM-CMIP6}
-: ${NTASKS_ODA:=128}
+: ${NTASKS_DA:=128}
+: ${NTASKS_ENKF:=108}
 : ${OCNGRIDFILE:=$INPUTDATA/ocn/blom/grid/grid_tnx1v4_20170622.nc}
 : ${OBSLIST:='TEM SAL SST'}
 : ${PRODUCERLIST:='EN422 EN422 NOAA'}

@@ -6,7 +6,7 @@
 : ${MEMBER1:=1} # first member  
 : ${ENSSIZE:=4} # number of members 
 : ${COMPSET:=NHISTfrc2esm}
-: ${USER_MODS_DIR:=$SETUPROOT/user_mods/noresm2-lmesm_free_128pes}   
+: ${USER_MODS_DIR:=$SETUPROOT/user_mods/noresm2-lmesm_128pes}   
 : ${RES:=f19_tn14}
 : ${START_DATE:=1970-01-01} # YYYY-MM-DD 
 

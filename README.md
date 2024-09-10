@@ -39,7 +39,11 @@ Install NorCPM in the nn9039k project space with
     cd /cluster/projects/nn9039k/people/$USER 
     git clone ssh://git@github.com/BjerknesCPU/NorCPM-CF.git NorCPM-CF
 
-NorCPM is installed in `/cluster/projects/nn9039k/people/$USER/NorCPM-CF`
+In case `git clone` throws a `permission denied` error then use instead
+
+    git clone https://github.com/BjerknesCPU/NorCPM-CF.git NorCPM-CF
+
+NorCPM is now installed in `/cluster/projects/nn9039k/people/$USER/NorCPM-CF`
 
 ## Setting up and running experiments 
 
@@ -217,6 +221,7 @@ not intact anymore.
 This can be achieved via setting appropriate values in the settings file of the 
 experiment as demonstrated in 
 `$NORCPMROOT/setup/noresm1/settings/norcpm-cf-system1_assim_19811115_continue20220915.sh`
+
 IMPORTANTLY:
 
 The case names must be identically to original ones. 
@@ -349,7 +354,6 @@ Job settings
                       : be 0 for assimilation experiments
     WALLTIME          : Total walltime for STOP_N*(1+RESTART) simulation length
     ACCOUNT           : CPU account name
-    MAX_PARALLEL_STARCHIVE : threads used for short-term archiving
 
 General settings
 

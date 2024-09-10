@@ -26,7 +26,7 @@ do
         cp -uv $ADIR/$CASE/rest/$START_DATE/$FNAME . 
       fi
     done
-    find . -name "*.gz" -exec gunzip -f {} \; 
+    find . -name "${CASE}.*.gz" -exec gunzip -f {} \; 
   done
 done
 echo DONE
